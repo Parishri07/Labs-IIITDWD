@@ -1,0 +1,49 @@
+/*CREATE TABLE Employee
+(
+  Fname VARCHAR(10) NOT NULL,
+  Lname VARCHAR(10),
+  Emp_id VARCHAR(10) NOT NULL,
+  Zip CHAR(6),
+  FOREIGN KEY (Emp_id) REFERENCES HAS(Emp_id) ); */
+
+    CREATE TABLE Order
+    (
+      number INT(7) NOT NULL,
+      actualShippingDate VARCHAR(10) NOT NULL,
+      expectedShippingDate VARCHAR(10) NOT NULL,
+      recievedDate VARCHAR(10) NOT NULL,
+      PRIMARY KEY (number),
+      FOREIGN KEY (number) REFERENCES Has(no),
+      FOREIGN KEY(number) REFERENCES ConsistsOf(order_number)
+      FOREIGN KEY(number) REFERENCES placed(order_no));
+
+CREATE TABLE Has
+(
+  Emp_id VARCHAR(10) NOT NULL,
+  no VARCHAR(10) NOT NULL );
+  
+CREATE TABLE parts
+(
+  Name VARCHAR(10) NOT NULL,
+  number INT(7),
+  quality_in_stock VARCHAR(10),
+  Price INT(10), 
+  FOREIGN KEY(Name) REFERENCES ConsistsOf(parts_name)); 
+  
+CREATE TABLE ConsistsOf 
+(
+  order_no INT(7) NOT NULL,
+  parts_name VARCHAR(10) NOT NULL );
+  
+CREATE TABLE customer
+(
+  Fname VARCHAR(10) NOT NULL,
+  Lname VARCHAR(10),
+  cust_id VARCHAR(10) NOT NULL,
+  Zip CHAR(6) 
+  FOREIGN KEY(cust_id) REFERENCES placed(cust_id)); 
+  
+CREATE TABLE placed
+(
+  order_no INT(7) NOT NULL,
+  cust_id VARCHAR(10) NOT NULL );
