@@ -169,3 +169,4 @@ WHERE Fname LIKE '[A-D]%';
 SELECT Fname, Lname
 FROM EMPLOYEE
 WHERE Lname LIKE 'Jo#_%' ESCAPE '#';
+--all characters after # will be escaped to convert into script
