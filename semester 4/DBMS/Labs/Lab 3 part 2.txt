@@ -1,0 +1,123 @@
+ CREATE TABLE Course
+(
+  Course_number VARCHAR(10), 
+  Course_name VARCHAR(20),
+  Credit_hours INT NOT NULL,
+  Department VARCHAR(3) NOT NULL,
+  PRIMARY KEY(Course_number, Course_name) );
+
+CREATE TABLE Student
+(
+  Student_number INT PRIMARY KEY,
+  Name VARCHAR(10) NOT NULL,
+  Class INT NOT NULL,
+  Major VARCHAR(3),
+  FOREIGN KEY (Major) REFERENCES Course(Department) );
+
+CREATE TABLE Section
+(
+  Section_identifier INT(5) PRIMARY KEY,
+  Course_number VARCHAR(10), 
+  Semester VARCHAR(10),
+  Years INT,
+  Instructor VARCHAR(10),
+  FOREIGN KEY (Course_number) REFERENCES Course(Course_number) );
+
+CREATE TABLE Grade_report 
+(
+  Student_number INT,
+  Section_identifier INT(5),
+  Grade CHAR NOT NULL,
+  PRIMARY KEY (Student_number, Section_identifier),
+  FOREIGN KEY (Student_number) REFERENCES Student(Student_number) ON DELETE CASCADE,
+  FOREIGN KEY (Section_identifier) REFERENCES Section(Section_identifier) ON DELETE CASCADE );
+
+CREATE TABLE Prerequisite
+(
+  Prerequisite_number VARCHAR(10), 
+  Course_number VARCHAR(10),
+  FOREIGN KEY (Course_number) REFERENCES Course(Course_number),
+  FOREIGN KEY (Prerequisite_number) REFERENCES Course(Course_number) );
+
+INSERT INTO Student (Student_number, Name, Class, Major)
+VALUES
+  (17, 'Smith', 1, 'CS'),
+  ( 8, 'Brown', 2, 'CS');  
+  
+INSERT INTO Course (Course_number, Course_name, Credit_hours, Department)
+VALUES
+  ('CS1310', 'Intro to Computer Science', '4', 'CS'),
+  ('CS3200', 'Data Structures', '4', 'CS'),
+  ('MATH2410', 'Discrete Mathematics', '3', 'MATH'),
+  ('CS3380', 'Database', '3', 'CS'); 
+  
+INSERT INTO Section (Section_identifier, Course_number, Semester, Years, Instructor)
+VALUES
+  (85, 'MATH2410', 'Fall', '07', 'King'),
+  (92, 'CS1310', 'Fall', '07', 'Anderson'),
+  (102, 'CS3200', 'Spring', '08', 'Knuth'),
+  (112, 'MATH2410', 'Fall', '08', 'Chang'),
+  (119, 'CS1310', 'Fall', '08', 'Anderson'),
+  (135, 'CS3380', 'Fall', '08', 'Stone'); 
+  
+INSERT INTO Grade_report (Student_number, Section_identifier, Grade)
+VALUES
+  (17, 112, 'B'),
+  (17, 119, 'C'),
+  (8, 85, 'A'),
+  (8, 92, 'A'),
+  (8, 102, 'B'),
+  (8, 135, 'A'); 
+  
+INSERT INTO Prerequisite (Prerequisite_number, Course_number)
+VALUES
+  ('CS3380', 'CS3200'),
+  ('CS3380', 'MATH2410'),
+  ('CS3200', 'CS1310');
+  
+--retrieve all senior students majoring in CS 
+SELECT Name
+FROM Student
+WHERE Major='CS' and Class=2;
+ 
+--retrieve all courses taught by Professor King in 2007 and 2008
+SELECT C.Course_name
+FROM Course as C, Section AS S
+Where S.Instructor='King' AND S.Course_number=C.Course_number
+
+--for each section taught by Professor King retrieve the course number, semester, year and number of students who took the section
+SELECT S.Course_number, S.Semester, S.Years, COUNT(gr.Student_number) AS Number_of_Students
+FROM Section S
+JOIN Grade_report gr ON S.Section_identifier = gr.Section_identifier
+JOIN Student stu ON gr.Student_number = stu.Student_number
+WHERE S.Instructor = 'King'
+GROUP BY S.Course_number, S.Semester, S.Years;
+
+--Retrieve the name and transcript of each senior student (Class = 2) majoring in CS.
+--A transcript includes course name, course number, credit hours, semester, year, and grade for each course completed by the student
+SELECT S.Name, C.Course_name, C.Course_number, C.Credit_hours, SS.Semester, SS.Years, G.Grade
+FROM Student as S, Course as C, Section as SS, Grade_report AS G
+Where Class=2 AND S.Student_number=G.Student_number AND G.Section_identifier=SS.Section_identifier AND SS.Course_number=C.Course_number;
+
+--Insert a new student, <‘Johnson’, 25, 1, ‘Math’>, in the database
+INSERT INTO STUDENT (Name, Student_number, Class, Major)
+VALUES ('Johnson', 25, 1, 'Math');
+SELECT * FROM Student;
+
+--Change the class of student ‘Smith’ to 2
+UPDATE Student
+set Class = 2
+where Name = 'Smith';
+SELECT * FROM Student;
+
+--Insert a new course, <‘Knowledge Engineering’, ‘CS4390’, 3, ‘CS’>
+INSERT INTO Course (Course_name, Course_number, Credit_hours, Department)
+values ('Knowledge Engineering', 'CS4390', 3, 'CS');
+SELECT * FROM Course;
+
+--Delete the record for the student whose name is ‘Smith’ and whose student number is 17.
+DELETE FROM Student
+WHERE Name = 'Smith' AND Student_number = 17;
+SELECT * FROM Student;
+SELECT * FROM Grade_report;
+--check
