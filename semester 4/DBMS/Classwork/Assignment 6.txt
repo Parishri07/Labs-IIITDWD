@@ -178,6 +178,14 @@ where Dname = 'Research';
 from ( EMPLOYEE NATURAL JOIN ( DEPARTMENT AS DEPT(Dname, Dno, Mssn, Mdate)))
 where dname = 'Research'; */
 
+--JOIN is cross product + condition 
+--NATURAL JOIN joins two tables where the common attribute name in both tables is same
+--SELF JOIN joins same table with itself
+--EQUI JOIN is similar to NATURAL JOIN but in where condition you can equate any two attributes not just common attribute
+--LEFT OUTER JOIN gives the matching values of the condition and the rows which are in left table but not in right table
+--RIGHT OUTER JOIN gives the matching values of the condition and the rows which are in right table but not in left table
+--FULL OUTER JOIN is the union of LEFT and RIGHT OUTER JOIN
+
 --outer join does not only include common values but even those employees who dont have supervisor
 SELECT E.Lname as Employee_name, S.Lname AS Supervisor_name
 FROM ( EMPLOYEE AS E LEFT OUTER JOIN EMPLOYEE AS S ON E.Super_ssn = S.Ssn );
