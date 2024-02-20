@@ -124,6 +124,12 @@ CREATE ASSERTION Salary_constraint
 CHECK ( NOT EXISTS ( SELECT *
                      FROM EMPLOYEE E, EMPLOYEE M, DEPARTMENT D
                      WHERE E.Salary > M.Salary and E.Dno = D.Dnumber AND D.Mgr_ssn = M.Ssn ) ); 
+ --Exists and not exists are used in correlated queries
+ --unlike the subqueries where the inner query is executed first and only once and then the outer query
+ --for every value in the outer query, the inner query is executed 
+ --it returns boolean value, if true then output is printed otherwise it is not
+ --in correlated queries, outer query's table attributes can be used in inner query
+ --correlated subqueries follow top down approach
 --check
 
 --creating views
