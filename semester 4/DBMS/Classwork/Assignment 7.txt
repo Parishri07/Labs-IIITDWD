@@ -172,3 +172,4 @@ WHERE ( SELECT COUNT(*)
  WHERE Pno = Pnumber
  GROUP BY pnumber, pname
  HAVING COUNT(*) > 2;
+ --when you need to add a condition with group by clause, where clause wont work, hence we use having clause
