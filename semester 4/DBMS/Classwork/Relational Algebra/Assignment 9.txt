@@ -1,0 +1,25 @@
+-- execute the code in RelaX online compiler
+
+-- SELECT OPERATIONS
+-- horizontal partitioning, commutative
+σDno=4(EMPLOYEE)
+
+σSalary>30000(EMPLOYEE)
+
+σ(Dno=4 AND Salary>25000) OR (Dno=5 AND Salary>30000)(EMPLOYEE)
+
+-- PROJECT OPERATIONS
+-- vertical partitioning, not commutative
+πFname, Lname, Salary(EMPLOYEE)
+
+-- retrieve the first name, last name and salary of all employees who work in department no. 5
+πFname, Lname, Salary(σDno=5(EMPLOYEE))
+-- Alternatively
+DEP5_EMPS ← σDno=5(EMPLOYEE)
+RESULT ← πFname, Lname, Salary(DEP5_EMPS)
+
+-- Rename the specified columns
+ρ(First_name, Last_name, Salary) ← πFname, Lname, Salary(EMPLOYEE)
+
+-- Retrieve the fname, lname and address of employees in Dname = Research
+πFname, Lname, Address(σDname='Research' AND Dnumber=Dno(EMPLOYEE, DEPARTMENT)) 

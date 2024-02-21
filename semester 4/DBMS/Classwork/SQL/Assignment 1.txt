@@ -1,3 +1,5 @@
+ --execute the code in SQL lite online compiler
+ 
  /* CREATE TABLE EMPLOYEE
 ( Fname VARCHAR(15) NOT NULL,
   Minit CHAR,
