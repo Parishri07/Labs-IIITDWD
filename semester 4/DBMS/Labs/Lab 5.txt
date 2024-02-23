@@ -142,18 +142,19 @@ ALTER TABLE EMPLOYEE
  AS SELECT P.pname, D.dname, COUNT(*) AS Number_of_employees , SUM(W.hours) AS Total_hours
  FROM PROJECT AS P
  JOIN DEPARTMENT AS D ON P.dnum = D.dnumber
- JOIN EMPLOYEE AS E ON P.dnum = E.dno
- JOIN WORKS_ON AS W ON P.pnumber = W.pno and W.essn = E.ssn
+ JOIN WORKS_ON AS W ON P.pnumber = W.pno
+ JOIN EMPLOYEE AS E ON W.essn = E.ssn
  GROUP BY P.Pname, D.dname;  
  SELECT * FROM PROJECT_INFO;
+ 
                                                                                                     
  --A view that has the project name, controlling department name, number of employees, and total hours worked per week on the project for each project with more than one employee working on it.
  CREATE VIEW PROJECT_INFO_2
- AS SELECT P.pname, D.dname, COUNT(*) AS Number_of_employees , SUM(W.hours) AS Total_hours
+ AS SELECT P.pname, D.dname, COUNT(Essn) AS Number_of_employees , SUM(W.hours) AS Total_hours
  FROM PROJECT AS P
  JOIN DEPARTMENT AS D ON P.dnum = D.dnumber
- JOIN EMPLOYEE AS E ON P.dnum = E.dno
- JOIN WORKS_ON AS W ON P.pnumber = W.pno and W.essn = E.ssn
+ JOIN WORKS_ON AS W ON P.pnumber = W.pno
+ JOIN EMPLOYEE AS E ON W.essn = E.ssn
  GROUP BY P.Pname, D.dname
  HAVING COUNT(*) > 1;
  SELECT * FROM PROJECT_INFO_2;
