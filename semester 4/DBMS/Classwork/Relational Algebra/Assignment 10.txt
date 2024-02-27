@@ -1,0 +1,34 @@
+--SQL Queries
+-- retrieve a list of names of each female employees's dependent
+SELECT fname, lname, dependent_name
+FROM EMPLOYEE, DEPENDENT
+WHERE Sex='F' AND ssn = essn;
+
+-- retrieve the names of all employees who work in the project which John Smith is working in
+SELECT DISTINCT fname, lname
+FROM EMPLOYEE, WORKS_ON
+WHERE Essn=ssn and pno IN ( SELECT Pno
+                            FROM EMPLOYEE,WORKS_ON
+                            WHERE Essn=ssn and Fname='John' and Lname='Smith' );
+
+--Relational Algebra
+πSsn( σDno=5(EMPLOYEE) ) ∪ πSuper_ssn( σDno=5(EMPLOYEE) ) 
+
+--after adding student and instructor dataset
+
+STUDENT ∪ INSTRUCTOR
+STUDENT ∩ INSTRUCTOR
+STUDENT - INSTRUCTOR
+STUDENT ⨯ INSTRUCTOR
+
+-- retrieve a list of names of each female employees's dependent
+πFname,Lname,Dependent_name( σ(Ssn=Essn) ((πFname,Lname,Ssn( σSex='F'(EMPLOYEE))) ⨯ DEPENDENT) )
+
+-- retrieve a list of names of each male employees's dependent whose department number is 5
+πFname,Lname,Dependent_name( σ(Ssn=Essn) ((πFname,Lname,Ssn( σSex='F' and Dno=5(EMPLOYEE))) ⨯ DEPENDENT) )
+
+σ(Ssn=Essn)( πFname,Lname,Ssn(σSex='F'(EMPLOYEE)) ⨯ DEPENDENT )
+πFname,Lname,Ssn(σSex='F'(EMPLOYEE)) ⨝ DEPENDENT
+
+-- retrive the name of the manager of the each department
+πDname,Lname,Fname( DEPARTMENT ⨝(Mgr_ssn=Ssn) EMPLOYEE)
