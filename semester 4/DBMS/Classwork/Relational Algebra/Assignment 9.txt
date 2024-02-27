@@ -2,6 +2,7 @@
 
 -- SELECT OPERATIONS
 -- horizontal partitioning, commutative
+-- operations on rows
 σDno=4(EMPLOYEE)
 
 σSalary>30000(EMPLOYEE)
@@ -10,6 +11,8 @@
 
 -- PROJECT OPERATIONS
 -- vertical partitioning, not commutative
+-- projects distinct queries only
+-- operations on columns
 πFname, Lname, Salary(EMPLOYEE)
 
 -- retrieve the first name, last name and salary of all employees who work in department no. 5
