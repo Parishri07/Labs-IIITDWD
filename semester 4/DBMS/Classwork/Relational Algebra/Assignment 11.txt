@@ -1,0 +1,21 @@
+-- select the employees who are working on those projects which John Smith is working on
+πEssn(WORKS_ON) - (πEssn( (πPno(WORKS_ON ⨝ Essn=Ssn (σFname='John' and Lname='Smith'(EMPLOYEE))) ⨯ (πEssn(WORKS_ON))) - (πPno,Essn(WORKS_ON)) ))
+
+-- for every project located in 'Stafford', list the project number, the controlling dept number and the dept manager's last name, address and birth date
+πPnumber, Dnum, Lname, Address, Bdate(( (σPlocation='Stafford'(PROJECT)) ))
+-- check
+
+πFname, Minit, Lname, Dname(EMPLOYEE ⟕(Ssn=Mgr_ssn) DEPARTMENT)
+πFname, Minit, Lname, Dname(EMPLOYEE ⟖(Ssn=Mgr_ssn) DEPARTMENT)
+πFname, Minit, Lname(EMPLOYEE ⟕(Ssn=Essn) WORKS_ON)
+πFname, Minit, Lname(EMPLOYEE ⟖(Ssn=Essn) WORKS_ON)
+
+-- Retrieve the name and address of all employees who work for the ‘Research’ department.
+πFname, Lname, Address (σDname='Research' (DEPARTMENT ⨝(Dnumber=Dno) EMPLOYEE) )
+
+-- For every project located in ‘Stafford’, list the project number, the controlling department number, and the department manager’s last name, address, and birth date.
+πPnumber, Dnum, Lname, Address, Bdate( (σPlocation='Stafford'(PROJECT) ⨝(Dnum=Dnumber) DEPARTMENT) ⨝(Mgr_ssn=Ssn) EMPLOYEE )
+
+-- Find the names of employees who work on all the projects controlled by department number 5.
+πLname, Fname(ρ(Ssn, Pno)(πEssn, Pno(WORKS_ON)) ÷ ρ(Pno)(πPnumber(σDnum=5(PROJECT))) * EMPLOYEE)
+-- check
