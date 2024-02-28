@@ -15,6 +15,11 @@
 -- operations on columns
 πFname, Lname, Salary(EMPLOYEE)
 
+-- DIVISON OPERATOR
+-- this operator is used when we have 'every' and 'all' words in the query 
+-- A(x,y) / B(y) :- it gives x values for which there should be a tuple <x,y> for every y value of relation
+-- πx(A) - πx((B ⨯ πx(A)) - A)
+
 -- retrieve the first name, last name and salary of all employees who work in department no. 5
 πFname, Lname, Salary(σDno=5(EMPLOYEE))
 -- Alternatively
