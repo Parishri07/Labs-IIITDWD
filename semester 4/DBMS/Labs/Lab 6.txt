@@ -1,0 +1,38 @@
+-- List the names of all employees in department 5 who work more than 10 hours per week on the ProductX project
+SELECT DISTINCT Fname, lname
+FROM WORKS_ON 
+JOIN PROJECT ON Pno = Pnumber
+JOIN EMPLOYEE ON essn = ssn
+WHERE dno = 5 and Pname = 'ProductX' and hours > 10;
+
+-- List the names of all employees who have a dependent with the same first name as themselves. 
+SELECT fname
+FROM EMPLOYEE
+JOIN DEPENDENT ON ssn=essn
+where fname = dependent_name;
+
+-- List the names of employees who are directly supervised by Franklin Wong. 
+SELECT E.Fname, E.lname
+FROM EMPLOYEE AS E
+JOIN DEPARTMENT on dno = dnumber
+JOIN EMPLOYEE AS S ON S.Ssn = Mgr_ssn
+WHERE S.Fname = 'Franklin' and S.Lname = 'Wong';
+
+-- List the names of all employees in department 5 who work more than 10 hours per week on the ProductX project
+πFname, Lname((σHours>10(WORKS_ON) ⨝(Ssn=Essn) σDno=5(EMPLOYEE)) ⨝(Pno = Pnumber) (σPname='ProductX'(PROJECT)))
+
+-- List the names of all employees who have a dependent with the same first name as themselves. 
+πFname(σFname=Dependent_name(EMPLOYEE ⨝(Ssn=Essn) DEPENDENT))
+-- check
+
+-- List the names of employees who are directly supervised by Franklin Wong.
+EMPLOYEE ⨝(Dno=Dnumber) DEPARTMENT
+-- check 
+
+-- List the names of employees who work on every project
+
+-- List the names of employees who do not work on any project
+
+-- List the names and addresses of employees who work on at least one project located in Houston but whose department has no location in Houston. 
+
+-- List the names of department managers who have no dependents.
