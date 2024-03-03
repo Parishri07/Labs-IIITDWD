@@ -30,9 +30,25 @@ EMPLOYEE ⨝(Dno=Dnumber) DEPARTMENT
 
 
 -- List the names of employees who work on every project
+SELECT Fname
+FROM EMPLOYEE JOIN WORKS_ON on Essn=ssn
+GROUP BY ssn, fname
+HAVING COUNT(DISTINCT pno) = (SELECT Count(*) FROM PROJECT);
+
 
 -- List the names of employees who do not work on any project
+SELECT Fname, Lname
+FROM EMPLOYEE JOIN WORKS_ON on Essn=ssn
+GROUP BY ssn, fname
+HAVING COUNT(DISTINCT pno) <> (SELECT Count(*) FROM PROJECT);
+
 
 -- List the names and addresses of employees who work on at least one project located in Houston but whose department has no location in Houston. 
 
--- List the names of department managers who have no dependents.
+-- List the names of department managers who have no dependents
+SELECT DISTINCT Fname, address
+FROM DEPT_LOCATIONS, WORKS_ON 
+JOIN EMPLOYEE on ssn=essn
+JOIN PROJECT on Pno=pnumber
+where plocation = 'Houston' AND dno=dnumber AND dlocation <> 'Houston'; 
+--CHECK
