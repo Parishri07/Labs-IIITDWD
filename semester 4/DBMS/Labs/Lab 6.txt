@@ -14,8 +14,7 @@ FROM EMPLOYEE
 JOIN DEPENDENT ON ssn=essn
 where fname = dependent_name;
 
-πFname(σFname=Dependent_name(EMPLOYEE ⨝(Ssn=Essn) DEPENDENT))
--- check
+πFname(σ(Fname=Dependent_name)(EMPLOYEE ⨝(Ssn=Essn) DEPENDENT))
 
 
 -- List the names of employees who are directly supervised by Franklin Wong. 
@@ -25,8 +24,7 @@ JOIN DEPARTMENT on dno = dnumber
 JOIN EMPLOYEE AS S ON S.Ssn = Mgr_ssn
 WHERE S.Fname = 'Franklin' and S.Lname = 'Wong';
 
-EMPLOYEE ⨝(Dno=Dnumber) DEPARTMENT
--- check 
+πE.Fname(σ(S.Fname='Franklin' and S.Lname='Wong')((ρE(EMPLOYEE) ⨝(E.Dno=Dnumber) DEPARTMENT) ⨝(Mgr_ssn=S.Ssn) ρS(EMPLOYEE)))
 
 
 -- List the names of employees who work on every project
