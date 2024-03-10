@@ -24,7 +24,7 @@
 -- Find the names of employees who work on all the projects controlled by department number 5.
 πFname, Pno(EMPLOYEE ⨝(Ssn=Essn) WORKS_ON) ÷ ρPno(πPnumber(σDnum=5(PROJECT)))
 -- check
-πFname, Lname((ρPno(πPnumber(σDnum=5(PROJECT))) ÷ ρ(Ssn, Pno)(πEssn, Pno(WORKS_ON))) ⨝ EMPLOYEE)
+πFname,Lname((πEssn, Pno(WORKS_ON ⨝(Ssn=Essn) EMPLOYEE) ÷ ρPno(πPnumber(σDnum=5(PROJECT)))) ⨝ EMPLOYEE)
 
 
 -- Make a list of project numbers for projects that involve an employee whose last name is ‘Smith’, either as a worker or as a manager of the department that controls the project.
