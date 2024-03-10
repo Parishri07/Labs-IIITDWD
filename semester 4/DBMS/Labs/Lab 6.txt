@@ -33,6 +33,8 @@ FROM EMPLOYEE JOIN WORKS_ON on Essn=ssn
 GROUP BY ssn, fname
 HAVING COUNT(DISTINCT pno) = (SELECT Count(*) FROM PROJECT);
 
+πFname, Lname((πSsn,Pno(EMPLOYEE ⨝(Ssn=Essn) WORKS_ON) ÷ πPno(WORKS_ON)) ⨝ EMPLOYEE)
+
 
 -- List the names of employees who do not work on any project
 SELECT Fname, Lname
@@ -40,8 +42,15 @@ FROM EMPLOYEE JOIN WORKS_ON on Essn=ssn
 GROUP BY ssn, fname
 HAVING COUNT(DISTINCT pno) <> (SELECT Count(*) FROM PROJECT);
 
+πFname, Lname(EMPLOYEE) - πFname, Lname(EMPLOYEE ⨝(Ssn=Essn) WORKS_ON)
+
 
 -- List the names and addresses of employees who work on at least one project located in Houston but whose department has no location in Houston. 
+πFname, Lname, Address(((EMPLOYEE ⨝(Ssn=Essn) WORKS_ON) ⨝(Pno=Pnumber) σPlocation='Houston'(PROJECT)) ⨝(Dnum=Dnumber) σDlocation<>'Houston' DEPT_LOCATIONS) 
+
+πFname, Lname, Address(πEssn(WORKS_ON ⨝(Pno=Pnumber) σPlocation='Houston'(PROJECT)) - πEssn((WORKS_ON ⨝(Pno=Pnumber) PROJECT) ⨝(Dnum=Dnumber) σDlocation='Houston'(DEPT_LOCATIONS)) ⨝(Essn=Ssn) EMPLOYEE)
+-- check
+
 
 -- List the names of department managers who have no dependents
 SELECT DISTINCT Fname, address
