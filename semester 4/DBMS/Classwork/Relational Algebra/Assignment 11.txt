@@ -2,24 +2,30 @@
 πEssn(WORKS_ON) - (πEssn( (πPno(WORKS_ON ⨝ Essn=Ssn (σFname='John' and Lname='Smith'(EMPLOYEE))) ⨯ (πEssn(WORKS_ON))) - (πPno,Essn(WORKS_ON)) ))
 πEssn, Pno(WORKS_ON) ÷ πPno(σ(Fname='John' and Lname='Smith')(EMPLOYEE) ⨝(Ssn=Essn) WORKS_ON)
 
+
 -- for every project located in 'Stafford', list the project number, the controlling dept number and the dept manager's last name, address and birth date
 πPnumber, Dnum, Lname, Address, Bdate((σPlocation='Stafford'(PROJECT) ⨝(Dnum=Dnumber) DEPARTMENT) ⨝(Mgr_ssn=Ssn) EMPLOYEE)
+
 
 πFname, Minit, Lname, Dname(EMPLOYEE ⟕(Ssn=Mgr_ssn) DEPARTMENT)
 πFname, Minit, Lname, Dname(EMPLOYEE ⟖(Ssn=Mgr_ssn) DEPARTMENT)
 πFname, Minit, Lname(EMPLOYEE ⟕(Ssn=Essn) WORKS_ON)
 πFname, Minit, Lname(EMPLOYEE ⟖(Ssn=Essn) WORKS_ON)
 
+
 -- Retrieve the name and address of all employees who work for the ‘Research’ department.
 πFname, Lname, Address (σDname='Research' (DEPARTMENT ⨝(Dnumber=Dno) EMPLOYEE) )
 
+
 -- For every project located in ‘Stafford’, list the project number, the controlling department number, and the department manager’s last name, address, and birth date.
 πPnumber, Dnum, Lname, Address, Bdate( (σPlocation='Stafford'(PROJECT) ⨝(Dnum=Dnumber) DEPARTMENT) ⨝(Mgr_ssn=Ssn) EMPLOYEE )
+
 
 -- Find the names of employees who work on all the projects controlled by department number 5.
 πFname, Pno(EMPLOYEE ⨝(Ssn=Essn) WORKS_ON) ÷ ρPno(πPnumber(σDnum=5(PROJECT)))
 -- check
 πFname, Lname((ρPno(πPnumber(σDnum=5(PROJECT))) ÷ ρ(Ssn, Pno)(πEssn, Pno(WORKS_ON))) ⨝ EMPLOYEE)
+
 
 -- Make a list of project numbers for projects that involve an employee whose last name is ‘Smith’, either as a worker or as a manager of the department that controls the project.
 (SELECT pno
@@ -31,7 +37,9 @@ FROM EMPLOYEE
 JOIN DEPARTMENT ON ssn=mgr_ssn
 JOIN PROJECT ON dnumber=dnum
 where Lname='Smith');
+
 πPno(σLname='Smith'(EMPLOYEE ⨝(Ssn=Essn) WORKS_ON)) ∪ πPnumber(σLname='Smith'((EMPLOYEE ⨝(Ssn=Mgr_ssn) DEPARTMENT) ⨝(Dnumber=Dnum) PROJECT))
+
 
 -- Retrieve the names of employees who have no dependents.
 SELECT fname, lname
@@ -40,7 +48,9 @@ WHERE fname NOT IN ( SELECT DISTINCT fname
                      FROM EMPLOYEE
                      JOIN DEPENDENT ON ssn=essn
                      WHERE dependent_name is not null );
+
 πFname, Lname(EMPLOYEE) - πFname,Lname(EMPLOYEE ⨝(Ssn=Essn) DEPENDENT)
+
 
 -- List the names of managers who have at least one dependent
 SELECT DISTINCT fname
@@ -48,4 +58,5 @@ FROM EMPLOYEE
 JOIN DEPENDENT ON ssn=essn
 JOIN DEPARTMENT ON ssn=mgr_ssn
 WHERE dependent_name is not null;
+
 πFname, Lname((EMPLOYEE ⨝(Ssn=Mgr_ssn) DEPARTMENT) ⨝(Ssn=Essn) DEPENDENT)
