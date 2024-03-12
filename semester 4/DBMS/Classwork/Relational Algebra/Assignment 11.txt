@@ -17,10 +17,6 @@
 πFname, Lname, Address (σDname='Research' (DEPARTMENT ⨝(Dnumber=Dno) EMPLOYEE) )
 
 
--- For every project located in ‘Stafford’, list the project number, the controlling department number, and the department manager’s last name, address, and birth date.
-πPnumber, Dnum, Lname, Address, Bdate( (σPlocation='Stafford'(PROJECT) ⨝(Dnum=Dnumber) DEPARTMENT) ⨝(Mgr_ssn=Ssn) EMPLOYEE )
-
-
 -- Find the names of employees who work on all the projects controlled by department number 5.
 πFname, Pno(EMPLOYEE ⨝(Ssn=Essn) WORKS_ON) ÷ ρPno(πPnumber(σDnum=5(PROJECT)))
 -- check
