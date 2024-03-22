@@ -1,11 +1,57 @@
+/*create trigger [trigger_name] 
+[before | after]  
+{insert | update | delete}  
+on [table_name]  
+[for each row]  
+[trigger_body]*/
+
 -- AFTER INSERT Trigger - This trigger is invoked after the insertion of data in the table
+CREATE TRIGGER afterinsert AFTER INSERT 
+ON EMPLOYEE
+BEGIN
+   SELECT * FROM EMPLOYEE WHERE ssn = new.ssn;
+END;
 
 -- AFTER UPDATE Trigger - This trigger is invoked in SQL after the modification of the data in the table
+CREATE TRIGGER afterupdate
+AFTER UPDATE 
+ON EMPLOYEE
+BEGIN
+   SELECT * FROM EMPLOYEE;
+END;
 
 -- AFTER DELETE Trigger - This trigger is invoked after deleting the data from the table
+CREATE TRIGGER afterDelete 
+AFTER DELETE
+ON EMPLOYEE 
+BEGIN 
+   SELECT * FROM EMPLOYEE;
+END;
 
 -- BEFORE INSERT Trigger - This trigger is invoked before the inserting the record in the table
+-- CHECK
+CREATE TRIGGER beforeInsert
+BEFORE INSERT
+ON Employee
+BEGIN
+    -- SET NEW.Dno = 1;
+    SELECT * FROM EMPLOYEE;
+END;
 
 -- BEFORE UPDATE Trigger - This trigger is invoked before the updating the record in the table
+-- CHECK
+CREATE TRIGGER beforeUpdate
+BEFORE UPDATE
+ON Employee
+BEGIN
+    SELECT * FROM EMPLOYEE;
+END;
 
 -- BEFORE DELETE Trigger - This trigger is invoked before deleting the record from the table
+-- CHECK
+CREATE TRIGGER beforeDelete
+BEFORE DELETE
+ON EMPLOYEE
+BEGIN
+    SELECT * FROM EMPLOYEE;
+END;
