@@ -1,0 +1,11 @@
+-- AFTER INSERT Trigger - This trigger is invoked after the insertion of data in the table
+
+-- AFTER UPDATE Trigger - This trigger is invoked in SQL after the modification of the data in the table
+
+-- AFTER DELETE Trigger - This trigger is invoked after deleting the data from the table
+
+-- BEFORE INSERT Trigger - This trigger is invoked before the inserting the record in the table
+
+-- BEFORE UPDATE Trigger - This trigger is invoked before the updating the record in the table
+
+-- BEFORE DELETE Trigger - This trigger is invoked before deleting the record from the table
