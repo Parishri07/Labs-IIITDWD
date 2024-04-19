@@ -1,3 +1,5 @@
+# Write a Python program to implement extendible hashing and insert the given data = {28, 4, 19, 1, 22, 16, 12, 0, 5, 7}. 
+# Take input from the user for bucket size, global depth, and local depth.
 class Bucket:
     def __init__(self, size):
         self.size = size
