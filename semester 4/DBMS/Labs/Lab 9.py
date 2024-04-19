@@ -59,4 +59,27 @@ insert(hash_table, data, m, global_depth, local_depth)
 # Print the buckets and their values
 print_hash_table(hash_table, m)
 
-# input:- bucket size: 13, global depth: 4, local depth: 2
+# input:- 
+"""
+Enter bucket size: 13
+Enter global depth: 4
+Enter local depth: 2
+"""
+
+#output:- 
+"""
+Data inserted successfully!
+Bucket 0:0
+Bucket 1:1
+Bucket 2:28
+Bucket 3:16
+Bucket 4:4
+Bucket 5:5
+Bucket 6:19
+Bucket 7:7
+Bucket 8:Empty
+Bucket 9:22
+Bucket 10:Empty
+Bucket 11:Empty
+Bucket 12:12
+"""
