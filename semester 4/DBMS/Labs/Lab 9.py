@@ -1,3 +1,6 @@
+# Write a Python program to implement linear hashing and insert the given data = {28, 4, 19, 1, 22, 16, 12, 0, 5, 7}. 
+# Take input from the user for bucket size, global depth, and local depth.
+
 def hash_function(key, m):
   """Simple hash function to calculate the initial hash index."""
   return key % m
