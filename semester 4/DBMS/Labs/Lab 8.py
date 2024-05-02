@@ -68,3 +68,22 @@ if __name__ == "__main__":
         hash_table.insert(value)
 
     hash_table.display()
+
+#Input: 
+"""
+Enter bucket size: 4
+Enter global depth: 2
+"""
+
+#Output: 
+"""
+Final Directory and Bucket Values:
+Directory Index: 0
+Bucket Data: [28, 4, 0]
+Directory Index: 3
+Bucket Data: [19, 7]
+Directory Index: 1
+Bucket Data: [1, 5]
+Directory Index: 2
+Bucket Data: [16, 12]
+"""
